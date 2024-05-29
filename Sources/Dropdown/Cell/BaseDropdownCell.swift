@@ -13,6 +13,13 @@ open class BaseDropdownCell: UITableViewCell {
     
     public let optionLabel = UILabel()
     
+    // MARK: - Properties
+    open override var isSelected: Bool {
+        willSet {
+            setSelected(newValue, animated: false)
+        }
+    }
+    
     var selectedTextColor: UIColor?
     var nomalTextColor: UIColor?
     var selectedBackgroundColor: UIColor?
@@ -39,12 +46,6 @@ open class BaseDropdownCell: UITableViewCell {
     }
     
     // MARK: - Methods
-    open override var isSelected: Bool {
-        willSet {
-            setSelected(newValue, animated: false)
-        }
-    }
-    
     open override func setSelected(_ selected: Bool, animated: Bool) {
         backgroundColor = selected ? selectedBackgroundColor : .clear
         optionLabel.textColor = selected ? selectedTextColor : nomalTextColor
