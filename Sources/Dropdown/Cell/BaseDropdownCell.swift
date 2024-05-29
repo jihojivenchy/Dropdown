@@ -17,8 +17,18 @@ open class BaseDropdownCell: UITableViewCell {
     var nomalTextColor: UIColor?
     var selectedBackgroundColor: UIColor?
     
+    // MARK: - Init
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        configureLayouts()
+    }
+    
+    required public init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Layouts
-    func configureLayouts() {
+    open func configureLayouts() {
         optionLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(optionLabel)
         
@@ -26,7 +36,6 @@ open class BaseDropdownCell: UITableViewCell {
         optionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         optionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
         optionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15).isActive = true
-        
     }
     
     // MARK: - Methods
