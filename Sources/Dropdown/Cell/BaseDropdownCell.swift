@@ -21,7 +21,7 @@ open class BaseDropdownCell: UITableViewCell {
     }
     
     var selectedTextColor: UIColor?
-    var nomalTextColor: UIColor?
+    var normalTextColor: UIColor?
     var selectedBackgroundColor: UIColor?
     
     // MARK: - Init
@@ -48,6 +48,6 @@ open class BaseDropdownCell: UITableViewCell {
     // MARK: - Methods
     open override func setSelected(_ selected: Bool, animated: Bool) {
         backgroundColor = selected ? selectedBackgroundColor : .clear
-        optionLabel.textColor = selected ? selectedTextColor : nomalTextColor
+        optionLabel.textColor = selected ? selectedTextColor : normalTextColor
     }
 }

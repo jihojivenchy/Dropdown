@@ -474,7 +474,7 @@ extension Dropdown: UITableViewDataSource {
         cell.optionLabel.text = dataSource[indexPath.row]
         cell.optionLabel.textColor = itemTextColor
         cell.optionLabel.font = itemTextFont
-        cell.nomalTextColor = itemTextColor
+        cell.normalTextColor = itemTextColor
         cell.selectedTextColor = selectedItemTextColor
         cell.selectedBackgroundColor = selectedItemBackgroundColor
         cell.selectionStyle = .none
