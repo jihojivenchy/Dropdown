@@ -450,7 +450,7 @@ extension Dropdown {
     private func configureDropdownLayout() {
         let visibleWindow = UIWindow.visibleWindow() ?? UIWindow()
         visibleWindow.addSubview(self)
-        visibleWindow.bringSubviewToFront(self)  // 드롭다운을 윈도우의 최상단으로 이동.
+        visibleWindow.bringSubviewToFront(self)
 
         leadingAnchor.constraint(equalTo: visibleWindow.leadingAnchor).isActive = true
         trailingAnchor.constraint(equalTo: visibleWindow.trailingAnchor).isActive = true
@@ -479,7 +479,15 @@ extension Dropdown: UITableViewDataSource {
         cell.selectedBackgroundColor = selectedItemBackgroundColor
         cell.selectionStyle = .none
         
-        customCellConfiguration?(indexPath.row, dataSource[indexPath.row], cell)
+        // This ensures that custom cell configuration is used when available,
+        // and defaults to the cell's layout configuration to avoid layout conflicts.
+        if let cellConfiguration = customCellConfiguration {
+            cellConfiguration(indexPath.row, dataSource[indexPath.row], cell)
+        } else {
+            // If customCellConfiguration does not exist, configure the cell with default layouts.
+            cell.configureLayouts()
+        }
+
         return cell
     }
 }

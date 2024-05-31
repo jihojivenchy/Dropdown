@@ -24,18 +24,8 @@ open class BaseDropdownCell: UITableViewCell {
     var normalTextColor: UIColor?
     var selectedBackgroundColor: UIColor?
     
-    // MARK: - Init
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configureLayouts()
-    }
-    
-    required public init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // MARK: - Layouts
-    open func configureLayouts() {
+    func configureLayouts() {
         optionLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(optionLabel)
         
