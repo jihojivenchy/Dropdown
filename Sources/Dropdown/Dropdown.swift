@@ -42,41 +42,100 @@ public class Dropdown: UIView {
     private weak var anchorView: AnchorView?
     
     // MARK: - Cell Style
-    private var cellHeight: CGFloat
-    private var itemTextColor: UIColor?
-    private var itemTextFont: UIFont
-    private var selectedItemTextColor: UIColor?
-    private var selectedItemBackgroundColor: UIColor?
-    private var separatorColor: UIColor?
-    private var tableViewBackgroundColor: UIColor?
+    public var cellHeight: CGFloat = 42 {
+        willSet { dropdownTableView.rowHeight = newValue }
+        didSet { dropdownTableView.reloadData() }
+    }
+    
+    public var itemTextColor: UIColor = .black {
+        didSet { dropdownTableView.reloadData() }
+    }
+    
+    public var itemTextFont: UIFont = .boldSystemFont(ofSize: 13) {
+        didSet { dropdownTableView.reloadData() }
+    }
+    
+    public var selectedItemTextColor: UIColor? = nil {
+        didSet { dropdownTableView.reloadData() }
+    }
+    
+    public var selectedItemBackgroundColor: UIColor = .clear {
+        didSet { dropdownTableView.reloadData() }
+    }
+    
+    public var separatorColor: UIColor? = .clear {
+        didSet { dropdownTableView.reloadData() }
+    }
     
     // MARK: - UI Properties
-    private var width: CGFloat?
-    private var cornerRadius: CGFloat
-    private var borderWidth: CGFloat
-    private var borderColor: CGColor
-    private var shadowColor: UIColor
-    private var shadowOffset: CGSize
-    private var shadowOpacity: Float
-    private var shadowRadius: CGFloat
+    /// The background color of the dropdown container.
+    /// - Note: Use this property to set the color of the dropdown's table view.
+    public var tableViewBackgroundColor: UIColor? = .white {
+        didSet { dropdownTableView.reloadData() }
+    }
     
-    private var dimmedBackgroundColor: UIColor?
+    /// The background color of the area behind the dropdown.
+    /// - Note: Use this property to set the color that appears behind the dropdown when it is presented.
+    public var dimmedBackgroundColor: UIColor? = .clear {
+        didSet { dropdownTableView.reloadData() }
+    }
     
     private var tableHeight: CGFloat {
         return dropdownTableView.rowHeight * CGFloat(dataSource.count)
     }
     
-    // MARK: - Dropdown Layout Properties
-    private var bottomOffset: CGPoint
+    public var width: CGFloat? = nil {
+        didSet { updateDropdownLayout() }
+    }
     
+    public var cornerRadius: CGFloat = 5 {
+        willSet { dropdownTableView.layer.cornerRadius = newValue }
+    }
+    
+    public var borderWidth: CGFloat = 1 {
+        willSet { dropdownContainer.layer.borderWidth = newValue }
+    }
+    
+    public var borderColor: CGColor = UIColor.clear.cgColor {
+        willSet { dropdownContainer.layer.borderColor = newValue }
+    }
+    
+    public var shadowColor: CGColor = UIColor.black.cgColor {
+        willSet { dropdownContainer.layer.shadowColor = newValue }
+    }
+    
+    public var shadowOffset: CGSize = CGSize(width: 0, height: 4) {
+        willSet { dropdownContainer.layer.shadowOffset = newValue }
+    }
+    
+    public var shadowOpacity: Float = 0.03 {
+        willSet { dropdownContainer.layer.shadowOpacity = newValue }
+    }
+    
+    public var shadowRadius: CGFloat = 4 {
+        willSet { dropdownContainer.layer.shadowRadius = newValue }
+    }
+    
+    // MARK: - Dropdown Layout Properties
     private var dropdownTopConstraint: NSLayoutConstraint?
     private var dropdownHeightConstraint: NSLayoutConstraint?
     private var dropdownLeadingConstraint: NSLayoutConstraint?
     private var dropdownWidthConstraint: NSLayoutConstraint?
     
+    /**
+    The offset point relative to `anchorView` when the drop down is shown below the anchor view.
+
+    By default, the drop down is showed onto the `anchorView` with the top
+    left corner for its origin, so an offset equal to (0, 0).
+    You can change here the default drop down origin.
+    */
+    public var bottomOffset: CGPoint = .zero {
+        didSet { updateDropdownLayout() }
+    }
+    
     // MARK: - Animation
-    private var animationduration: Double
-    private var downScaleTransform: CGAffineTransform
+    public var animationduration: Double = 0.3
+    public var downScaleTransform: CGAffineTransform = CGAffineTransform(scaleX: 0.6, y: 0.6)
     
     
     // MARK: - Custom Cell
@@ -95,7 +154,8 @@ public class Dropdown: UIView {
     public var itemSelected: ItemSelectedClosure?
     
     // MARK: - Property
-    public var dataSource: [String] {
+    /// The source of data for dropdown items.
+    public var dataSource: [String] = [] {
         didSet {
             updateDropdownLayout()
         }
@@ -111,8 +171,6 @@ public class Dropdown: UIView {
     /// Initializes the dropdown menu, requiring an anchor view and a data source as basic inputs.
     /// - Parameters:
     ///   - anchorView: The view that acts as a reference for positioning and triggering the dropdown.
-    ///   - bottomOffset: The vertical space between the dropdown and the anchorView.
-    ///   - dataSource: The source of data for dropdown items.
     ///   - cellHeight: The height of each dropdown item.
     ///   - itemTextColor: The text color for dropdown items.
     ///   - itemTextFont: The font of the text for dropdown items.
@@ -127,50 +185,10 @@ public class Dropdown: UIView {
     ///   - customCellConfiguration: Configuration used to define the appearance of custom cells.
     public init(
         anchorView: AnchorView,
-        bottomOffset: CGPoint = .zero,
-        dataSource: [String] = [],
-        cellHeight: CGFloat = 42,
-        itemTextColor: UIColor? = .black,
-        itemTextFont: UIFont = .boldSystemFont(ofSize: 13),
-        selectedItemTextColor: UIColor? = nil,
-        selectedItemBackgroundColor: UIColor? = .clear,
-        separatorColor: UIColor? = .clear,
-        tableViewBackgroundColor: UIColor? = .white,
-        dimmedBackgroundColor: UIColor? = .clear,
-        width: CGFloat? = nil,
-        cornerRadius: CGFloat = 5,
-        borderWidth: CGFloat = 1,
-        borderColor: CGColor = UIColor.clear.cgColor,
-        shadowColor: UIColor = .black,
-        shadowOffset: CGSize = CGSize(width: 0, height: 4),
-        shadowOpacity: Float = 0.03,
-        shadowRadius: CGFloat = 4,
-        animationduration: Double = 0.3,
-        downScaleTransform: CGAffineTransform = CGAffineTransform(scaleX: 0.6, y: 0.6),
         customCellType: UITableViewCell.Type = BaseDropdownCell.self,
         customCellConfiguration: CellConfigurationClosure? = nil
     ) {
         self.anchorView = anchorView
-        self.bottomOffset = bottomOffset
-        self.dataSource = dataSource
-        self.cellHeight = cellHeight
-        self.itemTextColor = itemTextColor
-        self.itemTextFont = itemTextFont
-        self.selectedItemTextColor = selectedItemTextColor ?? itemTextColor
-        self.selectedItemBackgroundColor = selectedItemBackgroundColor
-        self.separatorColor = separatorColor
-        self.tableViewBackgroundColor = tableViewBackgroundColor
-        self.dimmedBackgroundColor = dimmedBackgroundColor
-        self.width = width
-        self.cornerRadius = cornerRadius
-        self.borderWidth = borderWidth
-        self.borderColor = borderColor
-        self.shadowColor = shadowColor
-        self.shadowOffset = shadowOffset
-        self.shadowOpacity = shadowOpacity
-        self.shadowRadius = shadowRadius
-        self.animationduration = animationduration
-        self.downScaleTransform = downScaleTransform
         self.customCellType = customCellType
         self.customCellConfiguration = customCellConfiguration
         
@@ -199,7 +217,7 @@ public class Dropdown: UIView {
         dropdownContainer.layer.cornerRadius = cornerRadius
         dropdownContainer.layer.borderWidth = borderWidth
         dropdownContainer.layer.borderColor = borderColor
-        dropdownContainer.layer.shadowColor = shadowColor.cgColor
+        dropdownContainer.layer.shadowColor = shadowColor
         dropdownContainer.layer.shadowOffset = shadowOffset
         dropdownContainer.layer.shadowOpacity = shadowOpacity
         dropdownContainer.layer.shadowRadius = shadowRadius
