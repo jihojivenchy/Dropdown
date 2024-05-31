@@ -42,27 +42,33 @@ public class Dropdown: UIView {
     private weak var anchorView: AnchorView?
     
     // MARK: - Cell Style
+    /// The height of each dropdown item.
     public var cellHeight: CGFloat = 42 {
         willSet { dropdownTableView.rowHeight = newValue }
         didSet { dropdownTableView.reloadData() }
     }
     
+    /// The text color for dropdown items.
     public var itemTextColor: UIColor = .black {
         didSet { dropdownTableView.reloadData() }
     }
     
+    /// The font of the text for dropdown items.
     public var itemTextFont: UIFont = .boldSystemFont(ofSize: 13) {
         didSet { dropdownTableView.reloadData() }
     }
     
+    /// The text color for a selected dropdown item.
     public var selectedItemTextColor: UIColor? = nil {
         didSet { dropdownTableView.reloadData() }
     }
     
+    /// The background color for a selected dropdown item.
     public var selectedItemBackgroundColor: UIColor = .clear {
         didSet { dropdownTableView.reloadData() }
     }
     
+    /// The color of separators between dropdown items.
     public var separatorColor: UIColor? = .clear {
         didSet { dropdownTableView.reloadData() }
     }
@@ -84,6 +90,7 @@ public class Dropdown: UIView {
         return dropdownTableView.rowHeight * CGFloat(dataSource.count)
     }
     
+    /// The width of the dropdown
     public var width: CGFloat? = nil {
         didSet { updateDropdownLayout() }
     }
@@ -134,7 +141,10 @@ public class Dropdown: UIView {
     }
     
     // MARK: - Animation
+    /// The duration of the animation for showing and hiding the dropdown.
     public var animationduration: Double = 0.3
+    
+    /// The scale transform applied when the dropdown appears.
     public var downScaleTransform: CGAffineTransform = CGAffineTransform(scaleX: 0.6, y: 0.6)
     
     
@@ -171,16 +181,6 @@ public class Dropdown: UIView {
     /// Initializes the dropdown menu, requiring an anchor view and a data source as basic inputs.
     /// - Parameters:
     ///   - anchorView: The view that acts as a reference for positioning and triggering the dropdown.
-    ///   - cellHeight: The height of each dropdown item.
-    ///   - itemTextColor: The text color for dropdown items.
-    ///   - itemTextFont: The font of the text for dropdown items.
-    ///   - selectedItemTextColor: The text color for a selected dropdown item.
-    ///   - selectedItemBackgroundColor: The background color for a selected dropdown item.
-    ///   - separatorColor: The color of separators between dropdown items.
-    ///   - dimmedBackgroundColor: The background color of the overlay when the dropdown is active.
-    ///   - width: The width of the dropdown; defaults to anchorView.bounds.width minus bottomOffset.x.
-    ///   - animationDuration: The duration of the animation for showing and hiding the dropdown.
-    ///   - downScaleTransform: The scale transform applied when the dropdown appears.
     ///   - customCellType: An optional custom cell type if not using the default dropdown cell.
     ///   - customCellConfiguration: Configuration used to define the appearance of custom cells.
     public init(
