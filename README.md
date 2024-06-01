@@ -5,8 +5,8 @@
 
 <img src = "https://github.com/jihojivenchy/Dropdown/assets/99619107/f14b4439-2728-4b17-a1f2-ac3af68d2f0a" height = 600>
 
-## 소개
-사용하기 쉽고 커스텀 가능한 드롭다운 메뉴를 제공하는 UIKit 기반의 라이브러리입니다.
+## Introduction
+A UIKit-based library that provides an easy-to-use and customizable dropdown menu.
 
 <br>
 
@@ -16,29 +16,70 @@
 - Add `https://github.com/jihojivenchy/Dropdown.git`
 - Select "Up to Next Major" with "1.0.1"
 
+<br>
 
-## 사용방법
-### 드롭다운 생성하기
+## Basic Usage
+### Creating a Dropdown
 ```
 lazy var dropdown: Dropdown = {
     let dropdown = Dropdown(anchorView: dropdownAnchorView)
     return dropdown
 }()
 ```
-- 드롭다운은 `anchorView`를 기준으로 위치를 계산하기 때문에 초기화를 할 때, 꼭 앵커뷰를 설정해줘야 합니다.
+- The dropdown calculates its position based on the anchorView, so make sure to set the anchor view during initialization.
 
 <br>
 
-### 드롭다운 위치 계산하기
+### Calculating Dropdown Position (Important)
 ```
 override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     dropdown.updateDropdownLayout()
 }
 ```
-- 드롭다운은 'anchorView'를 기준으로 위치를 계산합니다.
-- 따라서 anchorView의 레이아웃이 완료된 시점에 `updateDropdownLayout` 메서드를 호출해서 위치를 계산해줍니다.
-- `viewDidAppear`는 예시입니다. anchorView의 레이아웃이 완료된 시점을 찾아 자유롭게 메서드를 호출해주세요.
+- The dropdown calculates its position based on the `anchorView`
+- Therefore, call the `updateDropdownLayout` method when the layout of the `anchorView` is complete.
+- The `viewDidAppear` method is an example. Feel free to call the method whenever the layout of the anchorView is done
+
+<br>
+
+### Setting the Data Source
+```
+lazy var dropdown: Dropdown = {
+    let dropdown = Dropdown(anchorView: dropdownAnchorView)
+    dropdown.dataSource = ["airplane", "car", "bus", "tram", "cablecar", "ferry"]
+    return dropdown
+}()
+```
+- Set the dataSource to configure the dropdown menu items.
+
+<br>
+
+### Adopting the Delegate
+```
+dropdown.delegate = self
+```
+- Assign the delegate.
+
+```
+extension ViewController: DropdownDelegate {
+    func willShow(_ sender: Dropdown) { }
+    func willHide(_ sender: Dropdown) { }
+    func itemSelected(_ sender: Dropdown, itemTitle: String, itemIndexRow: IndexRow) { }
+}
+```
+
+- Adopt the `DropdownDelegate` protocol and define the desired methods for usage.
+- Use the `sender` to differentiate between multiple Dropdown objects.
+
+
+
+
+
+
+
+
+
 
 
 
