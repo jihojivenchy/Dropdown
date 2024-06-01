@@ -83,7 +83,7 @@ public class Dropdown: UIView {
     /// The background color of the area behind the dropdown.
     /// - Note: Use this property to set the color that appears behind the dropdown when it is presented.
     public var dimmedBackgroundColor: UIColor? = .clear {
-        didSet { dropdownTableView.reloadData() }
+        willSet { backgroundView.backgroundColor = newValue }
     }
     
     private var tableHeight: CGFloat {
