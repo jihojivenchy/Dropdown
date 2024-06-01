@@ -415,7 +415,7 @@ extension Dropdown {
     public func show() {
         guard dropdownGeometry.isVisible else { return }
         
-        delegate?.willShow()
+        delegate?.willShow(self)
         configureDropdownLayout()
         
         if dropdownGeometry.overflowHeight > 0 {
@@ -450,7 +450,7 @@ extension Dropdown {
             }
         )
         
-        delegate?.willHide()
+        delegate?.willHide(self)
     }
     
     /// Dropdown Layout
@@ -508,7 +508,7 @@ extension Dropdown: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedItemIndexRow = indexPath.row
         
-        delegate?.itemSelected(itemTitle: dataSource[indexPath.row], itemIndexRow: indexPath.row)
+        delegate?.itemSelected(self, itemTitle: dataSource[indexPath.row], itemIndexRow: indexPath.row)
     
         hide()
     }
