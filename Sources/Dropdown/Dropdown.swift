@@ -9,7 +9,6 @@ import UIKit
 
 public typealias IndexRow = Int
 public typealias Closure = () -> Void
-public typealias ItemSelectedClosure = (String, IndexRow) -> Void
 public typealias CellConfigurationClosure = (IndexRow, String, UITableViewCell) -> Void
 
 public class Dropdown: UIView {
@@ -152,16 +151,8 @@ public class Dropdown: UIView {
     private var customCellType: UITableViewCell.Type
     private var customCellConfiguration: CellConfigurationClosure?
     
-    // MARK: - Action
-    /// The action to execute when the drop down will show.
-    public var willShow: Closure?
-
-    /// The action to execute when the hides the drop down.
-    public var willHide: Closure?
-    
-    /// A closure that gets called when an item is selected in a list.
-    /// The closure takes two parameters: the selected element and the row of the selected cell
-    public var itemSelected: ItemSelectedClosure?
+    // MARK: - Delegate
+    weak var delegate: DropdownDelegate?
     
     // MARK: - Property
     /// The source of data for dropdown items.
@@ -424,7 +415,7 @@ extension Dropdown {
     public func show() {
         guard dropdownGeometry.isVisible else { return }
         
-        willShow?()
+        delegate?.willShow()
         configureDropdownLayout()
         
         if dropdownGeometry.overflowHeight > 0 {
@@ -459,7 +450,7 @@ extension Dropdown {
             }
         )
         
-        willHide?()
+        delegate?.willHide()
     }
     
     /// Dropdown Layout
@@ -516,7 +507,8 @@ extension Dropdown: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedItemIndexRow = indexPath.row
-        itemSelected?(dataSource[indexPath.row], indexPath.row)
+        
+        delegate?.itemSelected(itemTitle: dataSource[indexPath.row], itemIndexRow: indexPath.row)
     
         hide()
     }
