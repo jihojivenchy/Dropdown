@@ -313,7 +313,7 @@ extension Dropdown {
             calculateDropdownPosition(window: window)
         }
         
-//        adjustDropdownWidthToFitSizeIfNecessary()
+        adjustDropdownWidthToFitSizeIfNecessary()
         adjustDropdownXPositionIfNecessary(window: window)
         
         let visibleHeight = tableHeight - dropdownGeometry.overflowHeight
@@ -383,15 +383,12 @@ extension Dropdown {
    
     /// Calculates and returns the width of the largest content item in the dropdown.
     private func fittingWidth() -> CGFloat {
-        guard let templateCell = dropdownTableView.dequeueReusableCell(withIdentifier: BaseDropdownCell.identifier)
-                as? BaseDropdownCell else { return .zero }
-
-        let maxWidth = dataSource
-            .map { text -> CGFloat in
-                templateCell.optionLabel.text = text
-                return templateCell.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).width
-            }
-            .max()
+        let labelMargin: CGFloat = 30  // 15 points on each side
+        
+        let maxWidth = dataSource.map { text -> CGFloat in
+            let textWidth = (text as NSString).size(withAttributes: [.font: itemTextFont]).width
+            return textWidth + labelMargin
+        }.max()
         
         return maxWidth ?? .zero
     }
