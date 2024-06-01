@@ -168,6 +168,7 @@ public class Dropdown: UIView {
     public var dataSource: [String] = [] {
         didSet {
             updateDropdownLayout()
+            dropdownTableView.reloadData()
         }
     }
     
