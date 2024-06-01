@@ -72,10 +72,31 @@ extension ViewController: DropdownDelegate {
 - Adopt the `DropdownDelegate` protocol and define the desired methods for usage.
 - Use the `sender` to differentiate between multiple Dropdown objects.
 
+<br>
 
+## Customization
 
-
-
+| Name | Description | Default Value |
+| --- | --- | --- |
+| `cellHeight` | The height of each dropdown item | `42` |
+| `itemTextColor` | The text color for dropdown items | `.black` |
+| `itemTextFont` | The font of the text for dropdown items | `.boldSystemFont(ofSize: 13)` |
+| `selectedItemTextColor` | The text color for a selected dropdown item | `nil` |
+| `selectedItemBackgroundColor` | The background color for a selected dropdown item | `.clear` |
+| `separatorColor` | The color of separators between dropdown items | `.clear` |
+| `selectedItemIndexRow` | The index of the selected dropdown item | `nil` |
+| `animationduration` | The duration of the animation for showing and hiding the dropdown | `0.3` |
+| `downScaleTransform` | The scale transform applied when the dropdown appears | `CGAffineTransform(scaleX: 0.6, y: 0.6)` |
+| `tableViewBackgroundColor` | The background color of the dropdown container | `.white` |
+| `dimmedBackgroundColor` | The background color of the area behind the dropdown | `.clear` |
+| `width` | The width of the dropdown | `nil` |
+| `cornerRadius` | The corner radius of the dropdown | `5` |
+| `borderWidth` | The border width of the dropdown container | `1` |
+| `borderColor` | The border color of the dropdown container | `UIColor.clear.cgColor` |
+| `shadowColor` | The shadow color of the dropdown container | `UIColor.black.cgColor` |
+| `shadowOffset` | The shadow offset of the dropdown container | `CGSize(width: 0, height: 4)` |
+| `shadowOpacity` | The shadow opacity of the dropdown container | `0.03` |
+| `shadowRadius` | The shadow radius of the dropdown container | `4` |
 
 
 
