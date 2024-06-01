@@ -152,7 +152,7 @@ public class Dropdown: UIView {
     private var customCellConfiguration: CellConfigurationClosure?
     
     // MARK: - Delegate
-    weak var delegate: DropdownDelegate?
+    public weak var delegate: DropdownDelegate?
     
     // MARK: - Property
     /// The source of data for dropdown items.
