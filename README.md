@@ -59,7 +59,7 @@ lazy var dropdown: Dropdown = {
 
 <br>
 
-### Adopting the Delegate
+### Adopting the Delegate (If you need)
 ```
 dropdown.delegate = self
 ```
@@ -176,6 +176,8 @@ lazy var dropdown: Dropdown = {
 | `shadowRadius` | The shadow radius of the dropdown container | `4` |
 
 
+### License
+Dropdown is available under the MIT license.
 
 
 
