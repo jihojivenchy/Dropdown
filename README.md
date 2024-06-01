@@ -19,6 +19,10 @@ A UIKit-based library that provides an easy-to-use and customizable dropdown men
 <br>
 
 ## Basic Usage
+```swift
+import Dropdown
+```
+
 ### Creating a Dropdown
 ```
 lazy var dropdown: Dropdown = {
