@@ -313,7 +313,7 @@ extension Dropdown {
             calculateDropdownPosition(window: window)
         }
         
-        adjustDropdownWidthToFitSizeIfNecessary()
+//        adjustDropdownWidthToFitSizeIfNecessary()
         adjustDropdownXPositionIfNecessary(window: window)
         
         let visibleHeight = tableHeight - dropdownGeometry.overflowHeight
