@@ -77,7 +77,7 @@ public class Dropdown: UIView {
     /// The background color of the dropdown container.
     /// - Note: Use this property to set the color of the dropdown's table view.
     public var tableViewBackgroundColor: UIColor? = .white {
-        didSet { dropdownTableView.reloadData() }
+        willSet { dropdownContainer.backgroundColor = newValue }
     }
     
     /// The background color of the area behind the dropdown.
