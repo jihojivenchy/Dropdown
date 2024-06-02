@@ -243,10 +243,13 @@ extension Dropdown {
         
         updateDropdownContainerConstraints()
         
-        dropdownTableView.topAnchor.constraint(equalTo: dropdownContainer.topAnchor).isActive = true
-        dropdownTableView.leadingAnchor.constraint(equalTo: dropdownContainer.leadingAnchor).isActive = true
-        dropdownTableView.bottomAnchor.constraint(equalTo: dropdownContainer.bottomAnchor).isActive = true
-        dropdownTableView.trailingAnchor.constraint(equalTo: dropdownContainer.trailingAnchor).isActive = true
+        // DropdownTableView Layout
+        dropdownTableView.frame = dropdownContainer.bounds
+        dropdownTableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        dropdownTableView.topAnchor.constraint(equalTo: dropdownContainer.topAnchor).isActive = true
+//        dropdownTableView.leadingAnchor.constraint(equalTo: dropdownContainer.leadingAnchor).isActive = true
+//        dropdownTableView.bottomAnchor.constraint(equalTo: dropdownContainer.bottomAnchor).isActive = true
+//        dropdownTableView.trailingAnchor.constraint(equalTo: dropdownContainer.trailingAnchor).isActive = true
     }
     
     public override func layoutSubviews() {
