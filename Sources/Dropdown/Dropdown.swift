@@ -139,7 +139,7 @@ public class Dropdown: UIView {
         didSet { updateDropdownLayout() }
     }
     
-    // MARK: - Animation
+    // MARK: - AnimationType
     /// The duration of the animation for showing and hiding the dropdown.
     public var animationduration: Double = 0.3
     
@@ -468,6 +468,83 @@ extension Dropdown {
         bottomAnchor.constraint(equalTo: visibleWindow.bottomAnchor).isActive = true
     }
 }
+
+// MARK: - Slide Animation
+extension Dropdown {
+    private func showWithSlideAnimation(with configuration: AnimationConfiguration) {
+        dropdownContainer.frame.size.height = 0
+        
+        UIView.animate(
+            withDuration: configuration.duration,
+            delay: 0,
+            usingSpringWithDamping: configuration.damping,
+            initialSpringVelocity: configuration.velocity,
+            animations: { [weak self] in
+                guard let self else { return }
+                alpha = 1
+                dropdownContainer.alpha = 1
+                dropdownContainer.frame.size.height = dropdownGeometry.height
+            }
+        )
+    }
+    
+    private func hideWithSlideAnimation(with configuration: AnimationConfiguration) {
+        UIView.animate(
+            withDuration: configuration.duration,
+            delay: 0,
+            usingSpringWithDamping: configuration.damping,
+            initialSpringVelocity: configuration.velocity,
+            animations: { [weak self] in
+                guard let self else { return }
+                
+                alpha = 0
+                dropdownHeightConstraint?.constant = 0
+                dropdownContainer.frame.size.height = 0
+                dropdownContainer.alpha = 0
+            },
+            completion: { [weak self] _ in
+                guard let self else { return }
+                dropdownHeightConstraint?.constant = dropdownGeometry.height
+                removeFromSuperview()
+            }
+        )
+    }
+}
+
+// MARK: - Scale Animation
+extension Dropdown {
+    private func showWithScaleAnimation(with configuration: AnimationConfiguration) {
+        dropdownContainer.transform = downScaleTransform
+        
+        UIView.animate(
+            withDuration: configuration.duration,
+            delay: 0,
+            usingSpringWithDamping: configuration.damping,
+            initialSpringVelocity: configuration.velocity,
+            animations: { [weak self] in
+                guard let self else { return }
+                self.alpha = 1
+                self.dropdownContainer.transform = .identity
+            }
+        )
+    }
+    
+    private func hideWithScaleAnimation(with configuration: AnimationConfiguration) {
+        UIView.animate(
+            withDuration: configuration.duration,
+            animations: { [weak self] in
+                guard let self else { return }
+                self.alpha = 0
+                self.dropdownContainer.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+            },
+            completion: { [weak self] _ in
+                guard let self else { return }
+                self.removeFromSuperview()
+            }
+        )
+    }
+}
+
 
 // MARK: - UITableViewDataSource
 extension Dropdown: UITableViewDataSource {
