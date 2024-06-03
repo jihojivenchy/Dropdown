@@ -490,7 +490,7 @@ extension Dropdown {
 // MARK: - Scale Animation
 extension Dropdown {
     private func showWithScaleAnimation(with configuration: AnimationConfiguration) {
-        dropdownContainer.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+        dropdownContainer.transform = configuration.downScaleTransform
         
         UIView.animate(
             withDuration: configuration.duration,
