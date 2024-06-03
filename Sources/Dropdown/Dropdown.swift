@@ -140,15 +140,7 @@ public class Dropdown: UIView {
     }
     
     // MARK: - AnimationType
-    public var animationType: DropdownAnimation = .scale(configuration: nil)
-    
-    
-    /// The duration of the animation for showing and hiding the dropdown.
-    public var animationduration: Double = 0.3
-    
-    /// The scale transform applied when the dropdown appears.
-    public var downScaleTransform: CGAffineTransform = CGAffineTransform(scaleX: 0.6, y: 0.6)
-    
+    public var dropdownAnimation: DropdownAnimation = DropdownAnimation()
     
     // MARK: - Custom Cell
     private var customCellType: UITableViewCell.Type
@@ -517,7 +509,7 @@ extension Dropdown {
 // MARK: - Scale Animation
 extension Dropdown {
     private func showWithScaleAnimation(with configuration: AnimationConfiguration) {
-        dropdownContainer.transform = downScaleTransform
+        dropdownContainer.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
         
         UIView.animate(
             withDuration: configuration.duration,
