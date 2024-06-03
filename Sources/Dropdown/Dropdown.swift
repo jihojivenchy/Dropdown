@@ -421,32 +421,18 @@ extension Dropdown {
             dropdownTableView.flashScrollIndicators()
         }
         
-        dropdownContainer.transform = downScaleTransform
-        
-        UIView.animate(
-            withDuration: animationduration,
-            delay: 0,
-            usingSpringWithDamping: 0.6,
-            initialSpringVelocity: 0.1,
-            animations: { [weak self] in
-                self?.alpha = 1
-                self?.dropdownContainer.transform = .identity
-            }
-        )
+        switch dropdownAnimation.type {
+        case .slide: showWithSlideAnimation(with: dropdownAnimation.configuration)
+        case .scale: showWithScaleAnimation(with: dropdownAnimation.configuration)
+        }
     }
     
     @objc
     public func hide() {
-        UIView.animate(
-            withDuration: animationduration,
-            animations: { [weak self] in
-                self?.alpha = 0
-                self?.dropdownContainer.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-            },
-            completion: { [weak self] _ in
-                self?.removeFromSuperview()
-            }
-        )
+        switch dropdownAnimation.type {
+        case .slide: showWithSlideAnimation(with: dropdownAnimation.configuration)
+        case .scale: showWithScaleAnimation(with: dropdownAnimation.configuration)
+        }
         
         delegate?.willHide(self)
     }
@@ -476,7 +462,6 @@ extension Dropdown {
             initialSpringVelocity: configuration.velocity,
             animations: { [weak self] in
                 guard let self else { return }
-                alpha = 1
                 dropdownContainer.alpha = 1
                 dropdownContainer.frame.size.height = dropdownGeometry.height
             }
@@ -491,15 +476,15 @@ extension Dropdown {
             initialSpringVelocity: configuration.velocity,
             animations: { [weak self] in
                 guard let self else { return }
-                
-                alpha = 0
                 dropdownHeightConstraint?.constant = 0
                 dropdownContainer.frame.size.height = 0
                 dropdownContainer.alpha = 0
+                alpha = 0
             },
             completion: { [weak self] _ in
                 guard let self else { return }
                 dropdownHeightConstraint?.constant = dropdownGeometry.height
+                alpha = 1
                 removeFromSuperview()
             }
         )
@@ -518,8 +503,7 @@ extension Dropdown {
             initialSpringVelocity: configuration.velocity,
             animations: { [weak self] in
                 guard let self else { return }
-                self.alpha = 1
-                self.dropdownContainer.transform = .identity
+                dropdownContainer.transform = .identity
             }
         )
     }
@@ -529,12 +513,13 @@ extension Dropdown {
             withDuration: configuration.duration,
             animations: { [weak self] in
                 guard let self else { return }
-                self.alpha = 0
-                self.dropdownContainer.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+                dropdownContainer.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+                alpha = 0
             },
             completion: { [weak self] _ in
                 guard let self else { return }
-                self.removeFromSuperview()
+                alpha = 1
+                removeFromSuperview()
             }
         )
     }
