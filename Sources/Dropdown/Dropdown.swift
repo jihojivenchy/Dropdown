@@ -140,6 +140,9 @@ public class Dropdown: UIView {
     }
     
     // MARK: - AnimationType
+    public var animationType: DropdownAnimation = .scale(configuration: nil)
+    
+    
     /// The duration of the animation for showing and hiding the dropdown.
     public var animationduration: Double = 0.3
     
