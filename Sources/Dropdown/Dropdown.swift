@@ -430,8 +430,8 @@ extension Dropdown {
     @objc
     public func hide() {
         switch dropdownAnimation.type {
-        case .slide: showWithSlideAnimation(with: dropdownAnimation.configuration)
-        case .scale: showWithScaleAnimation(with: dropdownAnimation.configuration)
+        case .slide: hideWithSlideAnimation(with: dropdownAnimation.configuration)
+        case .scale: hideWithScaleAnimation(with: dropdownAnimation.configuration)
         }
         
         delegate?.willHide(self)
