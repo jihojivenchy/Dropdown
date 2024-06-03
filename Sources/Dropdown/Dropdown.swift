@@ -139,8 +139,8 @@ public class Dropdown: UIView {
         didSet { updateDropdownLayout() }
     }
     
-    // MARK: - AnimationType
-    public var dropdownAnimation: DropdownAnimation = DropdownAnimation()
+    // MARK: - DropdownAnimation
+    public var animation: DropdownAnimation = DropdownAnimation()
     
     // MARK: - Custom Cell
     private var customCellType: UITableViewCell.Type
@@ -421,17 +421,17 @@ extension Dropdown {
             dropdownTableView.flashScrollIndicators()
         }
         
-        switch dropdownAnimation.type {
-        case .slide: showWithSlideAnimation(with: dropdownAnimation.configuration)
-        case .scale: showWithScaleAnimation(with: dropdownAnimation.configuration)
+        switch animation.type {
+        case .slide: showWithSlideAnimation(with: animation.configuration)
+        case .scale: showWithScaleAnimation(with: animation.configuration)
         }
     }
     
     @objc
     public func hide() {
-        switch dropdownAnimation.type {
-        case .slide: hideWithSlideAnimation(with: dropdownAnimation.configuration)
-        case .scale: hideWithScaleAnimation(with: dropdownAnimation.configuration)
+        switch animation.type {
+        case .slide: hideWithSlideAnimation(with: animation.configuration)
+        case .scale: hideWithScaleAnimation(with: animation.configuration)
         }
         
         delegate?.willHide(self)
