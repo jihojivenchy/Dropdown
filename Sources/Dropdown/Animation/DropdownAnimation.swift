@@ -40,7 +40,6 @@ public struct AnimationConfiguration {
     
     /// The transform applied when the animation type is `.scale`.
     /// This determines how much the view scales down before returning to its original size.
-    /// The default value is `CGAffineTransform(scaleX: 0.6, y: 0.6)`, meaning the view scales down to 60% of its original size.
     let downScaleTransform: CGAffineTransform
     
     
@@ -51,12 +50,12 @@ public struct AnimationConfiguration {
     ///   - damping: The damping ratio for the animation.
     ///   - velocity: The initial velocity of the animation.
     ///   - downScaleTransform: The transform applied when the animation type is `.scale`.
-    ///     Default is `CGAffineTransform(scaleX: 0.6, y: 0.6)`.
+    ///     Default is `CGAffineTransform(scaleX: 0.75, y: 0.75)`.
     public init(
         duration: TimeInterval,
         damping: CGFloat,
         velocity: CGFloat,
-        downScaleTransform: CGAffineTransform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+        downScaleTransform: CGAffineTransform = CGAffineTransform(scaleX: 0.75, y: 0.75)
     ) {
         self.duration = duration
         self.damping = damping
