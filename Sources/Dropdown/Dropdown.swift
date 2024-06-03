@@ -454,6 +454,7 @@ extension Dropdown {
 extension Dropdown {
     private func showWithSlideAnimation(with configuration: AnimationConfiguration) {
         dropdownContainer.frame.size.height = 0
+        dropdownContainer.alpha = 0
         
         UIView.animate(
             withDuration: configuration.duration,
@@ -478,7 +479,6 @@ extension Dropdown {
                 guard let self else { return }
                 dropdownHeightConstraint?.constant = 0
                 dropdownContainer.frame.size.height = 0
-                dropdownContainer.alpha = 0
             },
             completion: { [weak self] _ in
                 guard let self else { return }
