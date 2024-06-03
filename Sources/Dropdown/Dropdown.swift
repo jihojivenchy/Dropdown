@@ -479,12 +479,10 @@ extension Dropdown {
                 dropdownHeightConstraint?.constant = 0
                 dropdownContainer.frame.size.height = 0
                 dropdownContainer.alpha = 0
-                alpha = 0
             },
             completion: { [weak self] _ in
                 guard let self else { return }
                 dropdownHeightConstraint?.constant = dropdownGeometry.height
-                alpha = 1
                 removeFromSuperview()
             }
         )
