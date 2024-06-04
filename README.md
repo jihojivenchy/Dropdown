@@ -67,6 +67,8 @@ dropdown.delegate = self
 ```
 - Assign the delegate.
 
+<br>
+
 ```
 extension ViewController: DropdownDelegate {
     func willShow(_ sender: Dropdown) { }
@@ -77,6 +79,38 @@ extension ViewController: DropdownDelegate {
 
 - Adopt the `DropdownDelegate` protocol and define the desired methods for usage.
 - Use the `sender` to differentiate between multiple Dropdown objects.
+
+<br>
+
+### DropdownAnimation (If you need)
+```swift
+public var animation: DropdownAnimation = DropdownAnimation()
+```
+- The dropdown animation can be customized using the `animation` property.
+
+<br>
+
+```swift
+dropdown.animation = DropdownAnimation(type: .scale)
+```
+- You can set the dropdown animation by specifying the `DropdownAnimationType` as `.scale`.
+- The default value is `.slide`.
+
+<br>
+
+```swift
+dropdown.animation = DropdownAnimation(
+    type: .scale,
+    configuration: AnimationConfiguration(
+        duration: 0.5, damping: 0.5, velocity: 0.5, downScaleTransform: CGAffineTransform(scaleX: 0.5, y: 0.5)
+    )
+)
+```
+- For more detailed settings, you can use `AnimationConfiguration`.
+- `duration` = duration of the animation
+- `damping` = damping ratio of the animation
+- `velocity` = initial velocity of the animation
+- `downScaleTransform` = transform used in the `.scale` animation (default value: 0.75)
 
 <br>
 
@@ -164,8 +198,6 @@ lazy var dropdown: Dropdown = {
 | `selectedItemBackgroundColor` | The background color for a selected dropdown item | `.clear` |
 | `separatorColor` | The color of separators between dropdown items | `.clear` |
 | `selectedItemIndexRow` | The index of the selected dropdown item | `nil` |
-| `animationduration` | The duration of the animation for showing and hiding the dropdown | `0.3` |
-| `downScaleTransform` | The scale transform applied when the dropdown appears | `CGAffineTransform(scaleX: 0.6, y: 0.6)` |
 | `tableViewBackgroundColor` | The background color of the dropdown container | `.white` |
 | `dimmedBackgroundColor` | The background color of the area behind the dropdown | `.clear` |
 | `width` | The width of the dropdown | `nil` |
