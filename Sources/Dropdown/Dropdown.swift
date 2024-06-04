@@ -428,9 +428,9 @@ extension Dropdown {
     }
     
     @objc
-    public func hide(completion: @escaping () -> Void = { }) {
+    public func hide() {
         switch animation.type {
-        case .slide: hideWithSlideAnimation(with: animation.configuration, completion: completion)
+        case .slide: hideWithSlideAnimation(with: animation.configuration)
         case .scale: hideWithScaleAnimation(with: animation.configuration)
         }
         
@@ -467,10 +467,7 @@ extension Dropdown {
         )
     }
     
-    private func hideWithSlideAnimation(
-        with configuration: AnimationConfiguration,
-        completion: @escaping () -> Void = { }
-    ) {
+    private func hideWithSlideAnimation(with configuration: AnimationConfiguration) {
         UIView.animate(
             withDuration: configuration.duration,
             delay: 0,
@@ -485,7 +482,6 @@ extension Dropdown {
                 guard let self else { return }
                 dropdownHeightConstraint?.constant = dropdownGeometry.height
                 removeFromSuperview()
-                completion()
             }
         )
     }
@@ -566,9 +562,10 @@ extension Dropdown: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        hide {  [weak self] in
-            self?.selectedItemIndexRow = indexPath.row
+        DispatchQueue.main.async { [weak self] in
+            self?.hide()
         }
+        selectedItemIndexRow = indexPath.row
         delegate?.itemSelected(self, itemTitle: dataSource[indexPath.row], itemIndexRow: indexPath.row)
     }
 }
