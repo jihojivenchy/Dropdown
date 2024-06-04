@@ -3,7 +3,8 @@
 ![Version](https://img.shields.io/github/v/release/jihojivenchy/Dropdown)
 ![SPM supported](https://img.shields.io/badge/SPM-supported-brightgreen)
 
-<img src = "https://github.com/jihojivenchy/Dropdown/assets/99619107/f14b4439-2728-4b17-a1f2-ac3af68d2f0a" height = 600>
+<img src = "https://github.com/jihojivenchy/Dropdown/assets/99619107/b9747821-cac5-4e7a-b60e-a2a398524bbb" height = 600>
+<img src = "https://github.com/jihojivenchy/Dropdown/assets/99619107/9c309652-b195-4684-b465-bb6b0e3076cb" height = 600>
 
 ## Introduction
 A UIKit-based library that provides an easy-to-use and customizable dropdown menu.
