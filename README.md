@@ -3,6 +3,7 @@
 ![Version](https://img.shields.io/github/v/release/jihojivenchy/Dropdown)
 ![SPM supported](https://img.shields.io/badge/SPM-supported-brightgreen)
 
+### Slide & Scale Animation
 <img src = "https://github.com/jihojivenchy/Dropdown/assets/99619107/b9747821-cac5-4e7a-b60e-a2a398524bbb" height = 600>
 <img src = "https://github.com/jihojivenchy/Dropdown/assets/99619107/9c309652-b195-4684-b465-bb6b0e3076cb" height = 600>
 
