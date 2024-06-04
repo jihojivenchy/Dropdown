@@ -562,8 +562,10 @@ extension Dropdown: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        hide()
-        selectedItemIndexRow = indexPath.row
+        
+//        selectedItemIndexRow = indexPath.row
         delegate?.itemSelected(self, itemTitle: dataSource[indexPath.row], itemIndexRow: indexPath.row)
+        
+        hide()
     }
 }
