@@ -16,7 +16,7 @@ A UIKit-based library that provides an easy-to-use and customizable dropdown men
 ### Swift Package Manager
 - file -> Swift Packages -> Add Package Dependency
 - Add `https://github.com/jihojivenchy/Dropdown.git`
-- Select "Up to Next Major" with "1.0.1"
+- Select "Up to Next Major" with "1.0.2"
 
 <br>
 
